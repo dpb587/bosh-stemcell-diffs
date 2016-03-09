@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+cd "$STEMCELL_MOUNT"
+
+find . ! -path . ! -path './dev/*' -print0 | sort -z | while IFS= read -r -d $'\0' file ; do 
+  absfile=$( echo "$file" | cut -c2- )
+
+  if [ -d "$file" -o -L "$file" ] ; then
+    echo -n 00000000000000000000000000000000
+  else
+    md5sum "$file" | cut -c-32 | tr -d $'\n'
+  fi
+
+  stat --printf " %A %s %u %g " $file
+
+  echo -n "$absfile"
+
+  if [ -L "$file" ] ; then
+    echo -n " -> "
+    stat --printf "%N" $file | sed -r "s/^'.+' -> '(.+)'\$/\1/"
+  fi
+
+  echo ""
+done

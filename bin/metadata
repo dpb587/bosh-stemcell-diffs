@@ -1,0 +1,39 @@
+#!/bin/bash
+
+set -e
+
+export STEMCELL_INFRASTRUCTURE=$1
+export STEMCELL_HYPERVISOR=$2
+export STEMCELL_OS_NAME=$3
+export STEMCELL_OS_VERSION=$4
+export STEMCELL_VERSION=$5
+
+export STEMCELL_TARBALL="$PWD/stemcells/source/bosh-stemcell-$STEMCELL_VERSION-$STEMCELL_INFRASTRUCTURE-$STEMCELL_HYPERVISOR-$STEMCELL_OS_NAME-$STEMCELL_OS_VERSION-go_agent.tgz"
+export STEMCELL_MOUNT="/mnt/stemcell"
+
+echo "==> downloading stemcell"
+
+./bin/stemcell-fetch
+
+echo "==> mounting image"
+
+./bin/stemcell-mount
+
+METADATA_DIR="stemcells/metadata/$STEMCELL_VERSION/$STEMCELL_INFRASTRUCTURE/$STEMCELL_HYPERVISOR/$STEMCELL_OS_NAME-$STEMCELL_OS_VERSION"
+
+echo "==> collecting metadata"
+
+mkdir -p $METADATA_DIR
+
+for metadata in bin/metadata-* ; do
+  metadata_name=$( echo "$metadata" | cut -c14- )
+
+  if [ ! -e "$METADATA_DIR/$metadata_name" ] ; then
+    echo "--> $metadata_name"
+    $metadata > "$METADATA_DIR/$metadata_name"
+  fi
+done
+
+echo "==> unmounting image"
+
+./bin/stemcell-unmount

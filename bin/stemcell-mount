@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+tar -Oxf "$STEMCELL_TARBALL" image | tar -Oxzf- root.img > "$STEMCELL_MOUNT.img"
+mkdir "$STEMCELL_MOUNT"
+mount -t ext4 -o loop,offset=32256,ro "$STEMCELL_MOUNT.img" "$STEMCELL_MOUNT"

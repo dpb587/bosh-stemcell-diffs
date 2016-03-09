@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+set -u
+
+ONE=$1
+TWO=$2
+
+tar -Oxf "stemcells/source/$ONE" image | tar -Oxzf- root.img > stemcell-one.img
+mkdir /mnt/stemcell-one
+mount -t ext4 -o loop,offset=32256,ro stemcell-one.img /mnt/stemcell-one
+
+tar -Oxf "stemcells/source/$TWO" image | tar -Oxzf- root.img > stemcell-two.img
+mkdir /mnt/stemcell-two
+mount -t ext4 -o loop,offset=32256,ro stemcell-two.img /mnt/stemcell-two
