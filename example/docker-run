@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -u
+
+exec docker run \
+  --privileged \
+  --rm \
+  -e analyzer \
+  --volume "$1":/bosh-stemcell-metadata/stemcell \
+  --volume "$2":/bosh-stemcell-metadata/results \
+  "dpb587/bosh-stemcell-metadata:${tag:-latest}"

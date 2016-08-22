@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+openssl md5 "$tarball" | tail -c 33

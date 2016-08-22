@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+if tar -tzf "$tarball" | grep -q '^stemcell_dpkg_l.txt' ; then
+  tar -Oxzf "$tarball" stemcell_dpkg_l.txt
+else
+  tar -Oxzf "$tarball" stemcell_rpm_qa.txt
+fi

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -eu
+
+if ! [ -e "$mount" ]; then
+  echo "already unmounted"
+  exit
+fi
+
+echo "unmounting from $mount"
+umount "$mount"
+
+echo "cleaning up"
+rm "$mount.img"
+rm -fr "$mount"

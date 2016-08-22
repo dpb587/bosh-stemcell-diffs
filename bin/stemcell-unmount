@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e
-
-umount "$STEMCELL_MOUNT"
-rm "$STEMCELL_MOUNT.img"
-rm -fr "$STEMCELL_MOUNT"

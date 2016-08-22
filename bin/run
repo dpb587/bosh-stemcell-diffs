@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-docker run --privileged -t -i -v "$PWD/stemcells:/bosh-stemcell-diffs/stemcells" bosh-stemcell-diffs

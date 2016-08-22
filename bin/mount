@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -eu
+
+if [ -e "$mount" ]; then
+  echo "already mounted"
+  exit
+fi
+
+echo "extracting image from tarball"
+tar -Oxf "$tarball" image | tar -Oxzf- root.img > "$mount.img"
+
+echo "mounting to ${mount}"
+mkdir "$mount"
+mount -t ext4 -o loop,offset=32256,ro "$mount.img" "$mount"

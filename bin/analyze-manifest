@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+tar -Oxzf "$tarball" stemcell.MF

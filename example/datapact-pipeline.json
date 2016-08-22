@@ -1,0 +1,46 @@
+[
+  {
+    "branch": "ubuntu-trusty-filelist",
+    "task": {
+      "image": {
+        "source": {
+          "repository": "dpb587/bosh-stemcell-metadata"
+        }
+      },
+      "privileged": true,
+      "run": {
+        "path": "/bosh-stemcell-metadata/bin/analyze"
+      },
+      "env": {
+        "analyzer": "filelist"
+      }
+    },
+    "input": [
+      {
+        "branch": "ubuntu-trusty-stemcell"
+      }
+    ]
+  },
+  {
+    "branch": "ubuntu-trusty-packages",
+    "task": {
+      "image": {
+        "source": {
+          "repository": "dpb587/bosh-stemcell-metadata"
+        }
+      },
+      "privileged": true,
+      "run": {
+        "path": "/bosh-stemcell-metadata/bin/analyze"
+      },
+      "env": {
+        "analyzer": "filelist"
+      }
+    },
+    "input": [
+      {
+        "branch": "ubuntu-trusty-stemcell"
+      }
+    ]
+  }
+]

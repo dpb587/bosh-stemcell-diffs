@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+tarball_dir="${tarball:-$PWD/stemcell}"
+export tarball="$( echo $tarball_dir/*.tgz )"
+export mount="${mount:-/mnt/stemcell}"
+
+analyzer="${analyzer:-all}"
+
+if [[ "all" -eq "${analyzer}" ]]; then
+  analyzer=$( ls /bosh-stemcell-metadata/bin/analyze-* | xargs -n1 basename | cut -c9- | sort )
+fi
+
+cd results
+
+/bosh-stemcell-metadata/bin/mount
+
+for analysis in $analyzer; do
+  echo "analyzing $analysis"
+  /bosh-stemcell-metadata/bin/analyze-$analysis > $analysis
+done
+
+/bosh-stemcell-metadata/bin/unmount

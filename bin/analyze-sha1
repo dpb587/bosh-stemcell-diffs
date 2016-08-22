@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+openssl sha1 "$tarball" | tail -c 41

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-openssl md5 "$STEMCELL_TARBALL" | tail -c 33
