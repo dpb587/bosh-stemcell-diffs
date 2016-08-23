@@ -7,9 +7,9 @@ if ! [ -e "$mount" ]; then
   exit
 fi
 
-echo "unmounting from $mount"
+echo "unmounting"
 umount "$mount"
 
-echo "cleaning up"
+echo "cleaning"
 rm "$mount.img"
 rm -fr "$mount"

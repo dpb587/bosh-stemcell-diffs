@@ -7,5 +7,5 @@ exec docker run \
   --rm \
   -e analyzer \
   --volume "$1":/bosh-stemcell-metadata/stemcell \
-  --volume "$2":/bosh-stemcell-metadata/results \
+  --volume "$2":/bosh-stemcell-metadata/result \
   "dpb587/bosh-stemcell-metadata:${tag:-latest}"

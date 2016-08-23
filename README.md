@@ -6,17 +6,18 @@ For generating metadata about [BOSH](https://bosh.io) stemcells.
 ## Example
 
     # clone+cd
-    host$ git clone https://github.com/dpb587/bosh-stemcell-metadata.git && cd bosh-stemcell-metadata
+    $ git clone https://github.com/dpb587/bosh-stemcell-metadata.git
+    $ cd bosh-stemcell-metadata
 
     # temporary workspace
     $ workspace=~/tmp/bosh-stemcell-metadata
-    $ mkdir -p $workspace/{stemcell,results}
+    $ mkdir -p $workspace/{stemcell,result}
 
     # download a heavy stemcell
     $ wget -O $workspace/stemcell/tarball.tgz https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/bosh-stemcell-3202-aws-xen-ubuntu-trusty-go_agent.tgz
 
     # analyze
-    $ ./example/docker-run $workspace/{stemcell,results}
+    $ ./example/docker-run $workspace/{stemcell,result}
 
     # review
     $ less $workspace/packages
