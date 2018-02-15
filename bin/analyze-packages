@@ -1,9 +1,13 @@
 #!/bin/bash
 
-set -e
+set -eu
 
-if tar -tzf "$tarball" | grep -q '^stemcell_dpkg_l.txt' ; then
-  tar -Oxzf "$tarball" stemcell_dpkg_l.txt
-else
-  tar -Oxzf "$tarball" stemcell_rpm_qa.txt
+file=$( tar -tzf "$tarball" | grep -E "(packages.txt|stemcell_dpkg_l.txt|stemcell_rpm_qa.txt)" || true )
+
+if [ -z "$file" ]; then
+  echo "ERROR: packages.txt not found" >&2
+
+  exit 1
 fi
+
+tar -Oxzf "$tarball" "$file"
