@@ -2,13 +2,15 @@
 
 set -e
 
-tarball_dir="${tarball:-$PWD/stemcell}"
-export tarball="$( echo $tarball_dir/*.tgz )"
+if [ -z "${tarball:-}" ]; then
+  export tarball="$( echo ${tarball_dir:-$PWD/stemcell}/*.tgz )"
+fi
+
 export mount="${mount:-/mnt/stemcell}"
 
 analyzer="${analyzer:-all}"
 
-if [[ "all" -eq "${analyzer}" ]]; then
+if [[ "all" == "${analyzer}" ]]; then
   analyzer=$( ls /bosh-stemcell-metadata/bin/analyze-* | xargs -n1 basename | cut -c9- | sort )
 fi
 
